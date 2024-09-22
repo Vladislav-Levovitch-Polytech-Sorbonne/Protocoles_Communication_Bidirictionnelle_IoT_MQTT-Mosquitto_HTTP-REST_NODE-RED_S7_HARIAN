@@ -1,0 +1,196 @@
+[
+    {
+        "id": "b4e68fa5d7c02e8c",
+        "type": "tab",
+        "label": "Flux 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0832f314e079a701",
+        "type": "http in",
+        "z": "b4e68fa5d7c02e8c",
+        "name": "",
+        "url": "/Led",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 460,
+        "y": 440,
+        "wires": [
+            [
+                "28c5184237a3c50b"
+            ]
+        ]
+    },
+    {
+        "id": "20e893d862de1dd6",
+        "type": "ui_switch",
+        "z": "b4e68fa5d7c02e8c",
+        "name": "",
+        "label": "switch",
+        "tooltip": "",
+        "group": "3b588faaa83731b9",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 450,
+        "y": 280,
+        "wires": [
+            [
+                "f423c751eef48795",
+                "f8387fed9816fd91"
+            ]
+        ]
+    },
+    {
+        "id": "6a8fa6d596c157c6",
+        "type": "http response",
+        "z": "b4e68fa5d7c02e8c",
+        "name": "200 - Ok",
+        "statusCode": "200",
+        "headers": {
+            "header1": "value"
+        },
+        "x": 940,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "f423c751eef48795",
+        "type": "debug",
+        "z": "b4e68fa5d7c02e8c",
+        "name": "debug SWITCH",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "48859661b2095602",
+        "type": "debug",
+        "z": "b4e68fa5d7c02e8c",
+        "name": "debug ON",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "28c5184237a3c50b",
+        "type": "function",
+        "z": "b4e68fa5d7c02e8c",
+        "name": "function ON",
+        "func": "var bool_test = flow.get('bool_test');\n\nif (bool_test == 1) {\n    msg.payload = \"ON\";\n}\nelse if (bool_test == 0) {\n\n    msg.payload = \"OFF\";\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 440,
+        "wires": [
+            [
+                "48859661b2095602",
+                "6a8fa6d596c157c6"
+            ]
+        ]
+    },
+    {
+        "id": "f8387fed9816fd91",
+        "type": "function",
+        "z": "b4e68fa5d7c02e8c",
+        "name": "function Stockage interrupteur",
+        "func": "if (msg.payload == true )\n{\n    flow.set('bool_test', 1);\n} else if (msg.payload == false )\n{\n    flow.set('bool_test', 0);\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 340,
+        "wires": [
+            [
+                "c648908cd7fdba39"
+            ]
+        ]
+    },
+    {
+        "id": "c648908cd7fdba39",
+        "type": "debug",
+        "z": "b4e68fa5d7c02e8c",
+        "name": "debug SWITCH",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e4ad991e336008b6",
+        "type": "comment",
+        "z": "b4e68fa5d7c02e8c",
+        "name": "Clignotage si ON et Etat Haut si OFF",
+        "info": "",
+        "x": 540,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "3b588faaa83731b9",
+        "type": "ui_group",
+        "name": "Switch_LED",
+        "tab": "f93ec406d568da2f",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f93ec406d568da2f",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
